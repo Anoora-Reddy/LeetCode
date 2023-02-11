@@ -1,5 +1,31 @@
 class Solution:
-    def addBinary(self, a: str, b: str) -> str:
+    def addBinary(self, a: str, b: str) -> str: # Easy to implement
+        max_len = max(len(a), len(b))
+        a = a.zfill(max_len)
+        b = b.zfill(max_len)
+        out = ''
+        carry = 0
+        while max_len > 0:
+            if int(a[max_len - 1]) + int(b[max_len - 1]) + carry == 1:
+                out =  '1' + out
+                carry = 0
+            elif int(a[max_len - 1]) + int(b[max_len - 1]) + carry < 1:
+                out =  '0' + out
+                carry = 0
+            elif int(a[max_len - 1]) + int(b[max_len - 1]) + carry == 3:
+                out = '1' + out
+                carry = 1
+            elif int(a[max_len - 1]) + int(b[max_len - 1]) + carry > 1:
+                out = '0' + out
+                carry = 1
+            max_len -= 1
+        if carry == 1:
+            out =  '1' + out
+        
+        return out
+
+
+    def addBinary_Solution2(self, a: str, b: str) -> str:  # Faster way to implement
         i = len(a) - 1
         j = len(b) - 1
         out = ''
